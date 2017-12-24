@@ -35,15 +35,19 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+h_theta_x = sigmoid(X*theta);
 
 
+m = length(y); % number of training examples
+n = length(theta);
 
+%Logistic regression cost function
+J = sum((-y.* log(h_theta_x)) + ((y - ones(m,1)).*log(ones(m,1) - h_theta_x)))/m;
+J = J + (lambda / (2*m))*(theta(2:n)'*theta(2:n)); %regularization
 
-
-
-
-
-
+%LR Gradient
+grad = ((h_theta_x - y)'*X) / m;
+grad = grad + (lambda/m)*[0,theta(2:n)']; %Regularization
 
 % =============================================================
 
